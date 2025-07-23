@@ -46,7 +46,7 @@ get_os_logo() {
     elif [[ -f /etc/lsb-release ]] && grep -qi ubuntu /etc/lsb-release; then
         echo "󰕈"
     elif [[ -f /etc/os-release ]] && grep -qi kali /etc/os-release; then
-        echo ""
+        echo " "
     elif [[ -f /etc/os-release ]] && grep -qi parrot /etc/os-release; then
         echo ""
     else
@@ -58,7 +58,7 @@ get_os_logo() {
 setup_os_user_prompt() {
     local os_background=$zsh_os_bg
     [[ $EUID -eq 0 ]] && os_background=$zsh_root_os_bg
-    os_prompt="%F{$os_background}%F{$zsh_os_fg}%K{$os_background}$(get_os_logo)  %F{$os_background}%K{$(calc_transition_color $os_background $zsh_user_bg)}"
+    os_prompt="%F{$os_background}%F{$zsh_os_fg}%K{$os_background}$(get_os_logo) %F{$os_background}%K{$(calc_transition_color $os_background $zsh_user_bg)}"
     user_prompt="%F{$(calc_transition_color $os_background $zsh_user_bg)}%K{$zsh_user_bg}%F{$zsh_user_fg}%K{$zsh_user_bg} %n %F{$zsh_user_bg}%K{$(calc_transition_color $zsh_user_bg $zsh_dir_bg)}"
 }
 
