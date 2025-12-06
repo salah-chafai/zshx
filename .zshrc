@@ -288,6 +288,12 @@ precmd_functions+=(build_prompt)
 command_not_found=0
 precmd_functions+=(precmd_terminal_title)
 
+cat ~/.luffy.txt
+
+export GUROBI_HOME=/opt/gurobi1300/linux64
+export PATH="$GUROBI_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="$GUROBI_HOME/lib:$LD_LIBRARY_PATH"
+
 # >>> conda init >>>
 __conda_setup="$(CONDA_REPORT_ERRORS=false '$HOME/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -299,11 +305,5 @@ else
         export PATH="$HOME/anaconda3/bin:$PATH"
     fi
 fi
-unset __conda_setup
-# <<< conda init <<<
-
-PROMPT="%F{blue}%n%f %F{cyan}%~%f %# "
-venv=$(get_python_venv)
-[[ -n $venv ]] && PROMPT="($venv) $PROMPT"
 unset __conda_setup
 # <<< conda init <<<
