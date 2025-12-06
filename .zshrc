@@ -40,19 +40,20 @@ calc_transition_color() {
 # Determine OS logo based on distribution
 get_os_logo() {
     if [[ "$(uname)" == "Darwin" ]]; then
-        echo "󰀵"
+        echo "󰀵"   # macOS
     elif [[ -f /etc/arch-release ]]; then
-        echo ""
-    elif [[ -f /etc/lsb-release ]] && grep -qi ubuntu /etc/lsb-release; then
-        echo "󰕈"
-    elif [[ -f /etc/os-release ]] && grep -qi kali /etc/os-release; then
-        echo " "
-    elif [[ -f /etc/os-release ]] && grep -qi parrot /etc/os-release; then
-        echo ""
+        echo ""   # Arch
+    elif [[ -f /etc/lsb-release ]] && grep -qi "Ubuntu" /etc/lsb-release; then
+        echo "󰕈"   # Ubuntu
+    elif grep -qi "kali" /etc/os-release 2>/dev/null; then
+        echo " "  # Kali
+    elif grep -qi "parrot" /etc/os-release 2>/dev/null; then
+        echo ""   # Parrot
     else
-        echo ""
+        echo ""   # Default Linux
     fi
 }
+
 
 # Set up initial prompt segments
 setup_os_user_prompt() {
@@ -64,11 +65,20 @@ setup_os_user_prompt() {
 
 # Extract virtual environment name
 get_python_venv() {
-    [[ -n "$VIRTUAL_ENV" ]] || return
-    local venv_name="${VIRTUAL_ENV##*/}"
-    [[ "$venv_name" = "."* ]] && venv_name="$(basename "$(dirname "$VIRTUAL_ENV")")"
-    echo "$venv_name"
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        echo "$CONDA_DEFAULT_ENV"
+        return
+    fi
+
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        local venv_name="${VIRTUAL_ENV##*/}"
+        [[ "$venv_name" = "."* ]] && venv_name="$(basename "$(dirname "$VIRTUAL_ENV")")"
+        echo "$venv_name"
+        return
+    fi
 }
+
+
 
 # Convert number to superscript
 to_superscript() {
@@ -280,3 +290,32 @@ compinit -d ~/.zsh/zcompdump-$ZSH_VERSION
 precmd_functions+=(build_prompt)
 command_not_found=0
 precmd_functions+=(precmd_terminal_title)
+cat ~/.luffy.txt
+
+export GUROBI_HOME=/opt/gurobi1300/linux64
+export PATH="$GUROBI_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="$GUROBI_HOME/lib:$LD_LIBRARY_PATH"
+
+
+# >>> conda init >>>
+__conda_setup="$(CONDA_REPORT_ERRORS=false '$HOME/anaconda3/bin/conda' shell.zsh hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+
+PROMPT="%F{blue}%n%f %F{cyan}%~%f %# "
+venv=$(get_python_venv)
+[[ -n $venv ]] && PROMPT="($venv) $PROMPT"
+unset __conda_setup
+# <<< conda init <<<
+
+
+
