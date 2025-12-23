@@ -20,12 +20,17 @@ Perfect for developers working with version control:
 - **Working directory status**: staged files (󰱑), conflicts (!), modified files (), and untracked files ()
 - **Visual git status** that helps you understand your repository state at a glance
 
-### 🐍 Python Development Support
-- **Virtual environment detection** with clear visual separation
-- **Environment name display** for easy identification
-- **Seamless integration** with your development workflow
+### 🛠️ Development Environment Support
+Stay aware of your active workspace with intelligent environment detection. ZSHx currently supports:
 
-![Python Virtual Environment Support](screenshots/pyvenv.png)
+- **Python venv**: Native virtual environment detection.  
+![Python Virtual Environment Support](screenshots/pyvenv.png)  
+- **Conda**: Full support for Anaconda and Miniconda environments.  
+![Conda Environment Support](screenshots/conda_env.png)
+
+- **Environment name display** for easy identification
+- **Clear visual separation** from other prompt segments
+- **Seamless integration** with your data science and development workflows
 
 ### 💼 Background Job Management
 Keep track of your running processes:
@@ -69,7 +74,7 @@ Enhanced security awareness:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/salah-chafai/zshx.git
+   git clone [https://github.com/salah-chafai/zshx.git](https://github.com/salah-chafai/zshx.git)
    cd zshx
    ```
 
@@ -110,7 +115,7 @@ zsh_os_bg=#334159      # OS segment background
 zsh_user_bg=#415166    # User segment background
 zsh_dir_bg=#4587a1     # Directory segment background
 zsh_git_bg=#3ba883     # Git segment background
-zsh_python_bg=#e0af60  # Python venv segment background
+zsh_env_bg=#e0af60     # Dev environment (Python/Conda) background
 zsh_jobs_bg=#6a4f7a    # Jobs segment background
 ```
 
@@ -133,7 +138,7 @@ The prompt consists of several segments that appear conditionally:
 2. **Username**: Current user with visual styling
 3. **Directory**: Truncated current path
 4. **Git Status**: Branch and repository information (when in git repo)
-5. **Python Venv**: Virtual environment name (when active)
+5. **Dev Environment**: Active Python venv or Conda environment name
 6. **Background Jobs**: Number of running jobs (when > 0)
 
 ## Requirements
