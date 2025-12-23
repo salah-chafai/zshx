@@ -78,17 +78,13 @@ Enhanced security awareness:
    cd zshx
    ```
 
-2. Backup your existing zsh configuration:
+2. Copy the configuration:
    ```bash
-   cp ~/.zshrc ~/.zshrc.backup
+   cp .zshx ~/.zshx
+   echo echo "source ~/.zshx" >> ~/.zshrc 
    ```
 
-3. Copy the configuration:
-   ```bash
-   cp .zshrc ~/.zshrc
-   ```
-
-4. Install required plugins (optional but recommended):
+3. Install required plugins (optional but recommended):
    ```bash
    # On Arch Linux
    sudo pacman -S zsh-autosuggestions zsh-syntax-highlighting
@@ -100,7 +96,7 @@ Enhanced security awareness:
    brew install zsh-autosuggestions zsh-syntax-highlighting
    ```
 
-5. Restart your terminal or source the configuration:
+4. Restart your terminal or source the configuration:
    ```bash
    source ~/.zshrc
    ```
