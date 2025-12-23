@@ -81,7 +81,7 @@ Enhanced security awareness:
 2. Copy the configuration:
    ```bash
    cp .zshx ~/.zshx
-   echo echo "source ~/.zshx" >> ~/.zshrc 
+   echo "source ~/.zshx" >> ~/.zshrc 
    ```
 
 3. Install required plugins (optional but recommended):
